@@ -48,7 +48,12 @@ const TUI_AGENT_KIND_BY_AGENT = {
   grok: 'grok',
   devin: 'devin',
   ante: 'ante',
-  trae: 'trae'
+  trae: 'trae',
+  // Why distinct kinds rather than folding both into claude-code: they launch the same
+  // binary but are separate launch choices, and collapsing them makes the map many-to-one,
+  // which the reverse lookup below cannot invert.
+  cavalier: 'cavalier',
+  'ocx-claude': 'ocx-claude'
 } satisfies Record<TuiAgent, ConcreteAgentKind>
 
 // Why: `satisfies Record<TuiAgent, …>` makes the lookup exhaustive at compile

@@ -48,7 +48,12 @@ export const SKILLS_CLI_AGENT_KEY_BY_TUI_AGENT = {
   devin: 'devin',
   ante: null,
   // Why: Orca detects trae by `traecli`, an alias only TRAE CN ships.
-  trae: 'trae-cn'
+  trae: 'trae-cn',
+  // Why null: Cavalier launches Claude Code under a HOME it mints itself, so skills
+  // installed into the real `~/.claude` never reach the session — a silent no-op.
+  cavalier: null,
+  // Why: `ocx claude` execs Claude Code on the real HOME, so Claude-owned roots apply.
+  'ocx-claude': 'claude-code'
 } satisfies Record<TuiAgent, string | null>
 
 /**

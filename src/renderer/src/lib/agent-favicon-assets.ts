@@ -23,6 +23,7 @@ import rovoUrl from '../../../shared/agent-icons/rovo.png?url'
 import hermesUrl from '../../../shared/agent-icons/hermes.png?url'
 import devinUrl from '../../../shared/agent-icons/devin.png?url'
 import openclawUrl from '../../../shared/agent-icons/openclaw.png?url'
+import cavalierUrl from '../../../shared/agent-icons/cavalier.png?url'
 
 // Why: these agents have no hand-authored SVG glyph, so previously their icons
 // loaded live from Google's favicon service. That service is unreachable in some
@@ -32,6 +33,7 @@ import openclawUrl from '../../../shared/agent-icons/openclaw.png?url'
 // The PNGs live in src/shared/agent-icons so mobile (Metro) can bundle the same
 // files; see mobile/src/components/mobile-agent-icon-assets.ts.
 export const AGENT_FAVICON_ASSETS: Partial<Record<TuiAgent, string>> = {
+  cavalier: cavalierUrl,
   grok: grokUrl,
   'mimo-code': mimoCodeUrl,
   ante: anteUrl,
