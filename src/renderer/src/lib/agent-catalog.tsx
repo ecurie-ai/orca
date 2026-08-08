@@ -51,6 +51,13 @@ export const getAgentCatalog = createLocalizedCatalog((): AgentCatalogEntry[] =>
     homepageUrl: 'https://docs.anthropic.com/claude/docs/claude-code'
   },
   {
+    id: 'ocx-claude',
+    label: translate('auto.lib.agent.catalog.94a6fe1006', 'OCX Claude'),
+    // Why: detection follows `ocx`; the launch command adds the `claude` subcommand.
+    cmd: 'ocx',
+    homepageUrl: 'https://github.com/ecurie-ai/ecurie'
+  },
+  {
     id: 'claude-agent-teams',
     label: translate('auto.lib.agent.catalog.bf53f09bf8', 'Claude Agent Teams'),
     cmd: getTuiAgentLaunchCommand(TUI_AGENT_CONFIG['claude-agent-teams'], getCatalogPlatform()),
@@ -299,6 +306,12 @@ export const getAgentCatalog = createLocalizedCatalog((): AgentCatalogEntry[] =>
     cmd: 'openclaw',
     faviconDomain: 'openclaw.ai',
     homepageUrl: 'https://github.com/openclaw/openclaw'
+  },
+  {
+    id: 'cavalier',
+    label: translate('auto.lib.agent.catalog.d0de583c27', 'Cavalier'),
+    cmd: 'cavalier',
+    homepageUrl: 'https://github.com/ecurie-ai/ecurie'
   }
 ])
 
@@ -323,7 +336,9 @@ export function AgentIcon({
   if (!agent) {
     return <AgentLetterIcon letter="?" size={size} />
   }
-  if (agent === 'claude' || agent === 'claude-agent-teams') {
+  // Why ocx-claude here: `ocx claude` execs the real Claude Code, so it carries
+  // Claude's identity rather than a proxy identity of its own.
+  if (agent === 'claude' || agent === 'claude-agent-teams' || agent === 'ocx-claude') {
     return <ClaudeIcon size={size} />
   }
   if (agent === 'codex') {

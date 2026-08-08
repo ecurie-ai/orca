@@ -9,7 +9,10 @@ const HEADLESS_ONE_SHOT_MATCHERS: Partial<
 > = {
   claude: isPrintModeHeadlessOneShotCommand,
   trae: isPrintModeHeadlessOneShotCommand,
-  ante: isAnteHeadlessOneShotCommand
+  ante: isAnteHeadlessOneShotCommand,
+  // Why: `ocx claude` forwards argv to Claude Code, so it inherits Claude's `--print`
+  // one-shot contract. Cavalier has no headless surface and stays out.
+  'ocx-claude': isPrintModeHeadlessOneShotCommand
 }
 
 export function isHeadlessOneShotAgentCommand(agent: TuiAgent, tokens: readonly string[]): boolean {

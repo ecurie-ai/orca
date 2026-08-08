@@ -1,10 +1,16 @@
 import type { TuiAgent } from './types'
 import { isTuiAgent } from './tui-agent-config'
 
-// Keep this order in sync with the desktop agent catalog. It defines the
-// automatic fallback priority when the user has not chosen a default agent.
+// Must equal the desktop agent catalog's id order exactly; quick-workspace-agent-selection
+// asserts it. Despite the name it does more than automatic fallback: it also drives the
+// dashboard launch options and the agent picker, so membership means "reachable" and
+// position means both "shown here" and "preferred". Reordering one list means reordering both.
 export const TUI_AGENT_AUTO_PICK_ORDER = [
   'claude',
+  // Why second: `ocx claude` execs the same Claude Code binary through the proxy, so it
+  // beats every non-Claude agent as a fallback. Behind bare `claude` so the head of this
+  // list — also the agent shown before detection resolves — stays Claude on hosts without ocx.
+  'ocx-claude',
   'claude-agent-teams',
   'openclaude',
   'codex',
@@ -38,7 +44,12 @@ export const TUI_AGENT_AUTO_PICK_ORDER = [
   'rovo',
   'hermes',
   'devin',
-  'openclaw'
+  'openclaw',
+  // Why last, not omitted: this list also feeds the dashboard launch options and
+  // quick workspace selection, so omitting an agent hides it instead of merely
+  // deprioritising it. Last position keeps Cavalier reachable everywhere while
+  // `pickTuiAgent` (first detected wins) never selects it over another install.
+  'cavalier'
 ] as const satisfies readonly TuiAgent[]
 
 // Why: fresh installs should expose Claude Agent Teams in agent pickers; the

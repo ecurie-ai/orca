@@ -310,6 +310,32 @@ export const TUI_AGENT_CONFIG: Record<TuiAgent, TuiAgentConfig> = {
     expectedProcess: 'devin',
     // Why: `devin -- <prompt>` auto-submits immediately (docs.devin.ai/cli), so start the REPL with no argv prompt.
     promptInjectionMode: 'stdin-after-start'
+  },
+  // Why declared after `claude`: both wrappers below end on a foreground `claude`
+  // process, and PROCESS_TO_AGENT is first-wins — `claude` must keep ownership of
+  // that process name (same reason as claude-agent-teams).
+  cavalier: {
+    detectCmd: 'cavalier',
+    // Why bare, with no subcommand: the session subcommand carries options that decide
+    // the run (`mate`, `--mate=<persona>`, `runner`), so the user completes the line.
+    launchCmd: 'cavalier',
+    // Why: the session subcommands spawn `ocx claude`, which execs the real binary, so the
+    // PTY foreground is `claude` — never `cavalier`. Holds for CAVALIER_DIRECT_CLAUDE too.
+    expectedProcess: 'claude',
+    // Why: the first token is a subcommand, so an injected argv prompt would be parsed
+    // as one.
+    promptInjectionMode: 'stdin-after-start'
+  },
+  'ocx-claude': {
+    detectCmd: 'ocx',
+    // Why: require claude too — `ocx claude` execs it, so ocx alone is not enough.
+    detectRequiredCommands: ['claude'],
+    launchCmd: 'ocx claude',
+    expectedProcess: 'claude',
+    // Why: `ocx claude [claude args...]` forwards to Claude Code, so it keeps
+    // Claude's own argv prompt and `--prefill` seeding.
+    promptInjectionMode: 'argv',
+    draftPromptFlag: '--prefill'
   }
 }
 

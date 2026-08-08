@@ -86,7 +86,9 @@ function AgentLetterIcon({ letter, size = 16 }: { letter: string; size?: number 
 }
 
 export function MobileAgentIcon({ agentId, size = 16 }: { agentId: string; size?: number }) {
-  if (agentId === 'claude' || agentId === 'claude-agent-teams') {
+  // Why ocx-claude here: `ocx claude` execs the real Claude Code, so it carries
+  // Claude's identity rather than a proxy identity of its own.
+  if (agentId === 'claude' || agentId === 'claude-agent-teams' || agentId === 'ocx-claude') {
     return <ClaudeIcon size={size} />
   }
   if (agentId === 'codex') {

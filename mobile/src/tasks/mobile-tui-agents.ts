@@ -5,6 +5,7 @@ import type { TuiAgent } from '../../../src/shared/types'
 // mirrored with src/shared/tui-agent-selection.ts and assert parity in tests.
 export const MOBILE_TUI_AGENT_AUTO_PICK_ORDER = [
   'claude',
+  'ocx-claude',
   'claude-agent-teams',
   'openclaude',
   'codex',
@@ -38,7 +39,8 @@ export const MOBILE_TUI_AGENT_AUTO_PICK_ORDER = [
   'rovo',
   'hermes',
   'devin',
-  'openclaw'
+  'openclaw',
+  'cavalier'
 ] as const satisfies readonly TuiAgent[]
 
 export const MOBILE_TUI_AGENT_LABELS: Record<TuiAgent, string> = {
@@ -76,7 +78,9 @@ export const MOBILE_TUI_AGENT_LABELS: Record<TuiAgent, string> = {
   rovo: 'Rovo Dev',
   hermes: 'Hermes',
   devin: 'Devin',
-  openclaw: 'OpenClaw'
+  openclaw: 'OpenClaw',
+  cavalier: 'Cavalier',
+  'ocx-claude': 'OCX Claude'
 }
 
 export const MOBILE_TUI_AGENT_FAVICON_DOMAINS: Partial<Record<TuiAgent, string>> = {

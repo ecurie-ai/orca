@@ -2625,6 +2625,8 @@ export type TuiAgent =
   | 'devin' // Devin CLI
   | 'ante' // Ante (Antigma Labs)
   | 'trae' // Trae CLI
+  | 'cavalier' // Écurie Cavalier — Mate session launcher
+  | 'ocx-claude' // Claude Code routed through the OpenCodex proxy
 
 export type TaskViewPresetId = 'all' | 'issues' | 'review' | 'my-issues' | 'my-prs' | 'prs'
 
