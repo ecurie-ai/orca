@@ -1,4 +1,4 @@
-import type { TuiAgent } from './types'
+import type { TuiAgent } from './tui-agent'
 import { isTuiAgent } from './tui-agent-config'
 
 // Must equal the desktop agent catalog's id order exactly; quick-workspace-agent-selection
@@ -22,6 +22,7 @@ export const TUI_AGENT_AUTO_PICK_ORDER = [
   'trae',
   'pi',
   'omp',
+  'prime-agent',
   'gemini',
   'antigravity',
   'aider',
