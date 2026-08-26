@@ -48,7 +48,7 @@ export const getAgentCatalog = createLocalizedCatalog((): AgentCatalogEntry[] =>
     id: 'claude',
     label: translate('auto.lib.agent.catalog.0708ed89f1', 'Claude'),
     cmd: 'claude',
-    homepageUrl: 'https://docs.anthropic.com/claude/docs/claude-code'
+    homepageUrl: 'https://code.claude.com/docs'
   },
   {
     id: 'ocx-claude',
@@ -61,7 +61,7 @@ export const getAgentCatalog = createLocalizedCatalog((): AgentCatalogEntry[] =>
     id: 'claude-agent-teams',
     label: translate('auto.lib.agent.catalog.bf53f09bf8', 'Claude Agent Teams'),
     cmd: getTuiAgentLaunchCommand(TUI_AGENT_CONFIG['claude-agent-teams'], getCatalogPlatform()),
-    homepageUrl: 'https://code.claude.com/docs/agent-teams'
+    homepageUrl: 'https://code.claude.com/docs/en/agent-teams'
   },
   {
     id: 'openclaude',
