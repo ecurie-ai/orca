@@ -160,6 +160,7 @@ export const TERMINAL_HANDLERS: Record<string, CommandHandler> = {
     const useRendererBackedInteractiveTerminal =
       !client.isRemote && shouldUseRendererBackedInteractiveTerminal(command)
     const focus = flags.get('focus') === true
+    const suppressOrchestrationPointer = flags.get('suppress-orchestration-pointer') === true
     const result = await client.call<{ terminal: RuntimeTerminalCreate }>('terminal.create', {
       worktree: await getBrowserWorktreeSelector(flags, cwd, client),
       command,
@@ -169,7 +170,8 @@ export const TERMINAL_HANDLERS: Record<string, CommandHandler> = {
       // unless the caller explicitly asks for focus.
       focus,
       ...(focus ? { presentation: 'focused' } : {}),
-      ...(useRendererBackedInteractiveTerminal ? { rendererBacked: true, activate: focus } : {})
+      ...(useRendererBackedInteractiveTerminal ? { rendererBacked: true, activate: focus } : {}),
+      ...(suppressOrchestrationPointer ? { suppressOrchestrationPointer: true } : {})
     })
     printResult(result, json, formatTerminalCreate)
   },

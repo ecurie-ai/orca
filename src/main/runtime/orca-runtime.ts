@@ -1531,6 +1531,7 @@ type RuntimeLeafRecord = RuntimeSyncedLeaf & {
   lastOscTitle: string | null
   lastOscTitleAt: number | null
   paneTitleUpdatedAt: number | null
+  suppressOrchestrationPointer?: boolean
 }
 
 type RuntimePtyWorktreeRecord = {
@@ -1587,6 +1588,7 @@ type RuntimePtyWorktreeRecord = {
   waitBlockedAt: number | null
   // Why: memoized wait scan of the current retained tail (see RuntimeLeafRecord).
   tailWaitState?: TerminalTailWaitState
+  suppressOrchestrationPointer?: boolean
 }
 
 type TerminalAgentStatusSnapshot = {
@@ -1643,6 +1645,7 @@ type TerminalCreateOptions = {
   // intermediate pty-backed publish so the new tab doesn't briefly flash in
   // the wrong (active) group before the corrected snapshot lands.
   deferMobileSessionPublish?: boolean
+  suppressOrchestrationPointer?: boolean
 }
 
 function mergeTerminalEnvDeletionKeys(
@@ -7172,7 +7175,9 @@ export class OrcaRuntimeService {
         paneTitleUpdatedAt:
           existing?.ptyId === ptyId && existing.paneTitle === leaf.paneTitle
             ? existing.paneTitleUpdatedAt
-            : graphSyncedAt
+            : graphSyncedAt,
+        suppressOrchestrationPointer:
+          existingPty?.suppressOrchestrationPointer ?? existing?.suppressOrchestrationPointer
       })
 
       if (leaf.ptyId) {
@@ -28871,6 +28876,9 @@ export class OrcaRuntimeService {
           }
           pty.tabId = tabId
           pty.paneKey = paneKey
+          if (launchOpts.suppressOrchestrationPointer) {
+            pty.suppressOrchestrationPointer = true
+          }
         }
         const handle = pty ? this.issuePtyHandle(pty) : preAllocatedHandle
         if (pty && !adoptedStablePane && launchOpts.deferMobileSessionPublish !== true) {

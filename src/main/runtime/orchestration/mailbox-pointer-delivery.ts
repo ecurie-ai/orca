@@ -68,7 +68,10 @@ export class OrchestrationMailboxPointerDelivery<TWaiter extends OrchestrationMe
     if (!db || !mailboxHandle.startsWith('run:')) {
       return
     }
-    if (!this.deps.getTerminalHandleForLeafKey(this.leafKey(leaf))) {
+    if (
+      !this.deps.getTerminalHandleForLeafKey(this.leafKey(leaf)) ||
+      leaf.suppressOrchestrationPointer
+    ) {
       return
     }
     if (db.hasOutstandingRunDelivery?.(mailboxHandle.slice('run:'.length))) {
