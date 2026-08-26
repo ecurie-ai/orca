@@ -61,7 +61,8 @@ export const TERMINAL_LIFECYCLE_METHODS: RpcAnyMethod[] = [
             presentation: params.presentation,
             tabId: params.tabId,
             leafId: params.leafId,
-            ...(preAllocatedHandle ? { preAllocatedHandle } : {})
+            ...(preAllocatedHandle ? { preAllocatedHandle } : {}),
+            ...(params.suppressOrchestrationPointer ? { suppressOrchestrationPointer: true } : {})
           })
       )
     })

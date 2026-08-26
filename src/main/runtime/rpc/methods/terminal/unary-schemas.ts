@@ -163,7 +163,8 @@ export const TerminalCreateParams = z.object({
   activate: z.unknown().optional(),
   presentation: z.enum(['background', 'focused']).optional(),
   tabId: OptionalString,
-  leafId: OptionalString
+  leafId: OptionalString,
+  suppressOrchestrationPointer: z.boolean().optional()
 })
 
 export const TerminalSplit = TerminalHandle.extend({

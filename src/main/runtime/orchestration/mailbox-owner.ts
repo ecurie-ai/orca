@@ -10,6 +10,7 @@ export type OrchestrationMailboxLeaf = {
   lastAgentStatusObservedLive: boolean
   lastOscTitle: string | null
   paneTitle?: string | null
+  suppressOrchestrationPointer?: boolean
 }
 
 export type RoutedOrchestrationMailbox = {
